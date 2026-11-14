@@ -1,0 +1,38 @@
+{
+    "schemaVersion": 1,
+    "id": "${mod_id}",
+    "version": "${version}",
+    "name": "${mod_name}",
+    "description": "${description}",
+    "authors": [
+        "${mod_author}"
+    ],
+    "contact": {
+        "sources": "https://github.com/PrincParshia/Window-Utils"
+    },
+    "license": "${license}",
+    "icon": "${mod_id}.icon.png",
+    "environment": "client",
+    "entrypoints": {
+        "client": [
+            "princ.windowutils.client.WindowUtils"
+        ]
+    },
+    "depends": {
+        "fabricloader": ">=${fabric_loader_version}",
+        "fabric-api": "*",
+        "minecraft": "${minecraft_version}",
+        "java": ">=${java_version}",
+        "fzzy_config": "*"
+    },
+    "custom": {
+        "modmenu": {
+            "links": {
+                "modmenu.modrinth": "https://modrinth.com/mod/window-utils",
+                "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/window-utils",
+                "modmenu.kofi": "https://ko-fi.com/princparshia"
+            }
+        }
+    }
+}
+  
