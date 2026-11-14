@@ -19,8 +19,4 @@ public class Constants {
     public static Identifier withDefaultNamespace(final String string) {
         return Identifier.fromNamespaceAndPath(NAMESPACE, string);
     }
-
-    public static String withKeyMappingPrefix(String string) {
-        return "key." + NAMESPACE + "." + string;
-    }
 }

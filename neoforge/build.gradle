@@ -9,7 +9,8 @@ repositories {
         url = "https://maven.fzzyhmstrs.me/"
     }
     maven {
-        url = "https://repo.nyon.dev/releases/"
+        name = 'Kotlin for Forge'
+        url = 'https://thedarkcolour.github.io/KotlinForForge/'
     }
 }
 

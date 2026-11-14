@@ -1,7 +1,6 @@
 package princ.windowutils.client.config;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import me.fzzyhmstrs.fzzy_config.annotations.ClientModifiable;
 import me.fzzyhmstrs.fzzy_config.annotations.Translation;
 import me.fzzyhmstrs.fzzy_config.config.Config;
 import me.fzzyhmstrs.fzzy_config.screen.context.FzzyKeybind;

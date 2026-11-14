@@ -1,14 +1,12 @@
 package princ.windowutils.client.util;
 
+import com.mojang.blaze3d.platform.Monitor;
 import com.mojang.blaze3d.platform.Window;
 import net.minecraft.client.Minecraft;
 import org.jspecify.annotations.Nullable;
-import org.lwjgl.sdl.SDL_Rect;
-import org.lwjgl.system.MemoryStack;
+import org.lwjgl.glfw.GLFW;
 import princ.windowutils.client.config.entries.Preset;
 import princ.windowutils.client.state.WindowState;
-
-import static org.lwjgl.sdl.SDLVideo.*;
 
 public class Handler {
     private long handle;
@@ -51,9 +49,8 @@ public class Handler {
     public WindowState snapshot(Minecraft minecraft) {
         Window window = minecraft.getWindow();
         this.handle = window.handle();
-        long flags = SDL_GetWindowFlags(this.handle);
-        boolean borderless = (flags & SDL_WINDOW_BORDERLESS) != 0;
-        boolean maximized = (flags & SDL_WINDOW_MAXIMIZED) != 0;
+        boolean borderless = GLFW.glfwGetWindowAttrib(this.handle, GLFW.GLFW_DECORATED) == GLFW.GLFW_FALSE;
+        boolean maximized = GLFW.glfwGetWindowAttrib(this.handle, GLFW.GLFW_MAXIMIZED) == GLFW.GLFW_TRUE;
         return new WindowState(borderless, maximized, window.getWidth(), window.getHeight(), window.getX(), window.getY());
     }
 
@@ -68,7 +65,7 @@ public class Handler {
         this.maximize(maximize && !fullscreen);
 
         if (fullscreen) {
-            this.fullscreen();
+            this.fullscreen(window);
         } else if (size && !maximize) {
             this.size(width, height);
         }
@@ -79,41 +76,35 @@ public class Handler {
     }
 
     public void borderless(boolean borderless) {
-        SDL_SetWindowBordered(this.handle, !borderless);
-        SDL_SyncWindow(this.handle);
+        GLFW.glfwSetWindowAttrib(this.handle, GLFW.GLFW_DECORATED, borderless ? GLFW.GLFW_FALSE : GLFW.GLFW_TRUE);
     }
 
     public boolean maximized() {
-        return (SDL_GetWindowFlags(this.handle) & SDL_WINDOW_MAXIMIZED) != 0;
+        return GLFW.glfwGetWindowAttrib(this.handle, GLFW.GLFW_MAXIMIZED) == GLFW.GLFW_TRUE;
     }
 
     public void maximize(boolean maximize) {
         if (maximize == this.maximized()) return;
 
         if (maximize) {
-            SDL_MaximizeWindow(this.handle);
+            GLFW.glfwMaximizeWindow(this.handle);
         } else {
-            SDL_RestoreWindow(this.handle);
+            GLFW.glfwRestoreWindow(this.handle);
         }
-        SDL_SyncWindow(this.handle);
     }
 
-    public void fullscreen() {
-        try (MemoryStack stack = MemoryStack.stackPush()) {
-            SDL_Rect rect = SDL_Rect.malloc(stack);
-            if (SDL_GetDisplayBounds(SDL_GetDisplayForWindow(this.handle), rect)) {
-                this.size(rect.w(), rect.h());
-                this.position(rect.x(), rect.y());
-            }
-        }
+    public void fullscreen(Window window) {
+        Monitor monitor = window.findBestMonitor();
+        if (monitor == null) return;
+        this.size(monitor.getCurrentMode().getWidth(), monitor.getCurrentMode().getHeight());
+        this.position(monitor.getX(), monitor.getY());
     }
 
     public void size(int width, int height) {
-        SDL_SetWindowSize(this.handle, width, height);
-        SDL_SyncWindow(this.handle);
+        GLFW.glfwSetWindowSize(this.handle, width, height);
     }
 
     public void position(int x, int y) {
-        SDL_SetWindowPosition(this.handle, x, y);
+        GLFW.glfwSetWindowPos(this.handle, x, y);
     }
 }
