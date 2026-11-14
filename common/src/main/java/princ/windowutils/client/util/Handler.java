@@ -96,8 +96,8 @@ public class Handler {
     public void fullscreen(Window window) {
         Monitor monitor = window.findBestMonitor();
         if (monitor == null) return;
-        this.size(monitor.getCurrentMode().getWidth(), monitor.getCurrentMode().getHeight());
-        this.position(monitor.getX(), monitor.getY());
+        this.size(monitor.currentMode().getWidth(), monitor.currentMode().getHeight());
+        this.position(monitor.x(), monitor.y());
     }
 
     public void size(int width, int height) {
