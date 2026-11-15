@@ -28,6 +28,6 @@ side = "BOTH"
 [[dependencies.${mod_id}]]
 modId = "fzzy_config"
 type = "required"
-versionRange = "(,)"
+versionRange = "*"
 ordering = "NONE"
 side = "BOTH"

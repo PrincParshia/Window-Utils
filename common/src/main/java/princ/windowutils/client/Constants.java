@@ -2,7 +2,7 @@ package princ.windowutils.client;
 
 import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
 import me.fzzyhmstrs.fzzy_config.api.RegisterType;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import princ.windowutils.client.config.WindowUtilsConfig;
@@ -16,7 +16,7 @@ public class Constants {
     public static final Handler handler = new Handler();
     public static final WindowUtilsConfig config = ConfigApiJava.registerAndLoadConfig(WindowUtilsConfig::new, RegisterType.CLIENT);
 
-    public static Identifier withDefaultNamespace(final String string) {
-        return Identifier.fromNamespaceAndPath(NAMESPACE, string);
+    public static ResourceLocation withDefaultNamespace(final String string) {
+        return ResourceLocation.fromNamespaceAndPath(NAMESPACE, string);
     }
 }

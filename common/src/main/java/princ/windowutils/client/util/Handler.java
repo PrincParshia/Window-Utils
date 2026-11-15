@@ -3,7 +3,7 @@ package princ.windowutils.client.util;
 import com.mojang.blaze3d.platform.Monitor;
 import com.mojang.blaze3d.platform.Window;
 import net.minecraft.client.Minecraft;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import princ.windowutils.client.config.entries.Preset;
 import princ.windowutils.client.state.WindowState;
@@ -33,7 +33,7 @@ public class Handler {
         if (state == null) return;
 
         Window window = minecraft.getWindow();
-        this.handle = window.handle();
+        this.handle = window.getWindow();
 
         this.borderless(state.borderless());
 
@@ -48,7 +48,7 @@ public class Handler {
 
     public WindowState snapshot(Minecraft minecraft) {
         Window window = minecraft.getWindow();
-        this.handle = window.handle();
+        this.handle = window.getWindow();
         boolean borderless = GLFW.glfwGetWindowAttrib(this.handle, GLFW.GLFW_DECORATED) == GLFW.GLFW_FALSE;
         boolean maximized = GLFW.glfwGetWindowAttrib(this.handle, GLFW.GLFW_MAXIMIZED) == GLFW.GLFW_TRUE;
         return new WindowState(borderless, maximized, window.getWidth(), window.getHeight(), window.getX(), window.getY());
@@ -59,7 +59,7 @@ public class Handler {
     }
 
     public void apply(Window window, boolean borderless, boolean maximize, boolean fullscreen, boolean size, int width, int height, boolean position, int x, int y) {
-        this.handle = window.handle();
+        this.handle = window.getWindow();
 
         this.borderless(borderless || fullscreen);
         this.maximize(maximize && !fullscreen);

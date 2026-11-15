@@ -3,7 +3,7 @@ package princ.windowutils.client.config.helper;
 import me.fzzyhmstrs.fzzy_config.screen.internal.ConfigScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 import princ.windowutils.client.state.WindowState;
 
 import static princ.windowutils.client.Constants.config;
